@@ -240,14 +240,13 @@ ul, ol { list-style: none; padding: 0; }
 .nav a:not(.nav__cta):hover::after { transform: scaleX(1); }
 
 .nav__cta {
-  border: 1px solid currentColor;
   border-radius: 999px;
   padding: 0.5rem 1.15rem !important;
   opacity: 1;
   transition: background 0.25s var(--ease), color 0.25s var(--ease);
 }
-.nav__cta:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-.on-dark:not(.is-scrolled) .nav__cta:hover { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.nav__cta:hover { background: var(--ink); color: var(--paper); }
+.on-dark:not(.is-scrolled) .nav__cta:hover { background: var(--paper); color: var(--ink); }
 
 /* Mobile toggle */
 .nav-toggle {
