@@ -1,0 +1,125 @@
+/* Crossbow Capital Advisors — interactions */
+(function () {
+  "use strict";
+
+  var prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- Current year ---------- */
+  var yearEl = document.getElementById("year");
+  if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+  /* ---------- Header: scrolled + on-dark state ---------- */
+  var header = document.getElementById("siteHeader");
+  var hero = document.getElementById("hero");
+
+  function updateHeader() {
+    // Interior pages (no dark hero) keep the header solid at all times.
+    var scrolled = window.scrollY > 24 || !hero;
+    header.classList.toggle("is-scrolled", scrolled);
+
+    // Header sits on the dark hero until we've scrolled past most of it
+    if (hero) {
+      var heroBottom = hero.offsetHeight - 90;
+      header.classList.toggle("on-dark", window.scrollY < heroBottom);
+    }
+  }
+  updateHeader();
+  window.addEventListener("scroll", updateHeader, { passive: true });
+
+  /* ---------- Mobile menu ---------- */
+  var toggle = document.getElementById("navToggle");
+  var menu = document.getElementById("mobileMenu");
+
+  function setMenu(open) {
+    toggle.classList.toggle("is-open", open);
+    menu.classList.toggle("is-open", open);
+    toggle.setAttribute("aria-expanded", String(open));
+    menu.setAttribute("aria-hidden", String(!open));
+    toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    document.body.style.overflow = open ? "hidden" : "";
+  }
+
+  if (toggle && menu) {
+    toggle.addEventListener("click", function () {
+      setMenu(!menu.classList.contains("is-open"));
+    });
+    menu.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", function () { setMenu(false); });
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && menu.classList.contains("is-open")) setMenu(false);
+    });
+  }
+
+  /* ---------- Reveal on scroll ---------- */
+  var revealEls = document.querySelectorAll("[data-reveal]");
+  if (prefersReduced || !("IntersectionObserver" in window)) {
+    revealEls.forEach(function (el) { el.classList.add("is-in"); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var el = entry.target;
+          // stagger siblings within the same group
+          var delay = Number(el.dataset.delay || 0);
+          el.style.transitionDelay = delay + "ms";
+          el.classList.add("is-in");
+          io.unobserve(el);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+
+    // Apply a gentle stagger to grouped reveals
+    var groups = document.querySelectorAll(".cap-grid, .focus-list, .approach-grid, .insights-grid, .philosophy__points, .firm__cols, .stats, .hero__inner");
+    groups.forEach(function (group) {
+      var kids = group.querySelectorAll("[data-reveal]");
+      kids.forEach(function (kid, i) { kid.dataset.delay = String(Math.min(i * 70, 350)); });
+    });
+
+    revealEls.forEach(function (el) { io.observe(el); });
+  }
+
+  /* ---------- Subtle hero parallax ---------- */
+  if (!prefersReduced && hero) {
+    var light = hero.querySelector(".hero__light");
+    var grid = hero.querySelector(".hero__grid");
+    var ticking = false;
+    window.addEventListener("scroll", function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        var y = window.scrollY;
+        if (y < window.innerHeight) {
+          if (light) light.style.transform = "translateY(" + y * 0.12 + "px)";
+          if (grid) grid.style.transform = "translateY(" + y * 0.06 + "px)";
+        }
+        ticking = false;
+      });
+    }, { passive: true });
+  }
+
+  /* ---------- Contact form (client-side; no backend wired) ---------- */
+  var form = document.getElementById("contactForm");
+  var status = document.getElementById("formStatus");
+  if (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      status.classList.remove("is-error");
+
+      var name = form.elements.name.value.trim();
+      var email = form.elements.email.value.trim();
+      var message = form.elements.message.value.trim();
+      var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+      if (!name || !emailOk || !message) {
+        status.textContent = "Please complete your name, a valid email, and a message.";
+        status.classList.add("is-error");
+        return;
+      }
+
+      // Placeholder submission — wire to a backend / mailto provider in production.
+      status.textContent = "Thank you. Your inquiry has been received — we will respond directly.";
+      form.reset();
+    });
+  }
+})();

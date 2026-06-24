@@ -1,0 +1,18 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*~
+
+# Scratch / preview artifacts (headless-screenshot temp pages)
+_preview_tmp.html
+*.tmp
+
+# Logs
+*.log
