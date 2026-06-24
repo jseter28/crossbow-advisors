@@ -11,15 +11,18 @@
   /* ---------- Header: scrolled + on-dark state ---------- */
   var header = document.getElementById("siteHeader");
   var hero = document.getElementById("hero");
+  // Header treats the homepage hero OR any [data-dark-hero] band (e.g. the
+  // Team masthead) as the dark region it overlays until scrolled past.
+  var darkHero = hero || document.querySelector("[data-dark-hero]");
 
   function updateHeader() {
-    // Interior pages (no dark hero) keep the header solid at all times.
-    var scrolled = window.scrollY > 24 || !hero;
+    // Pages without any dark hero keep the header solid at all times.
+    var scrolled = window.scrollY > 24 || !darkHero;
     header.classList.toggle("is-scrolled", scrolled);
 
-    // Header sits on the dark hero until we've scrolled past most of it
-    if (hero) {
-      var heroBottom = hero.offsetHeight - 90;
+    // Header sits on the dark band until we've scrolled past most of it
+    if (darkHero) {
+      var heroBottom = darkHero.offsetHeight - 90;
       header.classList.toggle("on-dark", window.scrollY < heroBottom);
     }
   }

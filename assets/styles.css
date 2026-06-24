@@ -690,10 +690,12 @@ ul, ol { list-style: none; padding: 0; }
   flex-direction: column;
   gap: 0.5rem;
   min-height: 210px;
-  transition: background 0.4s var(--ease);
+  transition: background 0.4s var(--ease), color 0.4s var(--ease);
   cursor: pointer;
 }
-.team-card:hover { background: var(--paper-2); }
+.team-card:hover { background: var(--navy); }
+.team-card:hover h3,
+.team-card:hover .insight__more { color: var(--paper); }
 .team-card__role {
   font-size: 0.7rem;
   letter-spacing: 0.18em;
@@ -708,7 +710,7 @@ ul, ol { list-style: none; padding: 0; }
   letter-spacing: -0.015em;
   margin-top: auto;
 }
-.team-card .insight__more { color: var(--ink); margin-top: 1rem; }
+.team-card .insight__more { color: var(--navy); margin-top: 1rem; }
 
 @media (max-width: 860px) { .team-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 540px) { .team-grid { grid-template-columns: 1fr; } }
@@ -719,12 +721,15 @@ ul, ol { list-style: none; padding: 0; }
 /* ============================================================
    INTERIOR PAGES (team landing + member bios)
    ============================================================ */
-body.interior .site-header {
+/* Standard interior pages: solid header, content pushed below it.
+   Pages with a dark masthead (.has-dark-hero) instead use the homepage
+   behavior — transparent header over the band, solid paper once scrolled. */
+body.interior:not(.has-dark-hero) .site-header {
   background: rgba(244, 242, 237, 0.9);
   backdrop-filter: saturate(180%) blur(14px);
   border-bottom-color: var(--line);
 }
-body.interior main { padding-top: var(--header-h); }
+body.interior:not(.has-dark-hero) main { padding-top: var(--header-h); }
 
 .page-hero {
   padding-top: clamp(3rem, 7vw, 5rem);
@@ -739,6 +744,46 @@ body.interior main { padding-top: var(--header-h); }
   letter-spacing: -0.03em;
 }
 .page-hero__lede { color: var(--muted); margin-top: 1.25rem; max-width: 48ch; font-size: 1.05rem; }
+
+/* Dark masthead variant (Team landing) — matches the homepage/contact heroes:
+   ink background with a navy radial glow + faint grid, rather than flat navy. */
+.page-hero--navy {
+  position: relative;
+  background: var(--ink);
+  color: var(--paper);
+  overflow: hidden;
+  isolation: isolate;
+}
+/* faint grid */
+.page-hero--navy::before {
+  content: "";
+  position: absolute; inset: 0; z-index: -1;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size: clamp(70px, 8vw, 120px) clamp(70px, 8vw, 120px);
+  mask-image: radial-gradient(120% 130% at 78% 25%, #000 30%, transparent 85%);
+  -webkit-mask-image: radial-gradient(120% 130% at 78% 25%, #000 30%, transparent 85%);
+}
+/* navy radial glow */
+.page-hero--navy::after {
+  content: "";
+  position: absolute; inset: -25%; z-index: -1;
+  background:
+    radial-gradient(55% 55% at 80% 25%, rgba(80,105,150,0.34), transparent 62%),
+    radial-gradient(50% 50% at 12% 85%, rgba(47,67,104,0.30), transparent 68%);
+  filter: blur(8px);
+}
+.page-hero--navy .eyebrow { color: var(--navy-soft); }
+.page-hero--navy h1 { color: var(--paper); }
+.page-hero--navy .page-hero__lede { color: rgba(244, 242, 237, 0.76); }
+/* Dark mastheads sit under the (transparent) fixed header, so clear its height. */
+body.has-dark-hero .page-hero--navy {
+  padding-top: calc(var(--header-h) + clamp(2rem, 5vw, 3.5rem));
+}
+body.has-dark-hero .contact-hero {
+  padding-top: calc(var(--header-h) + clamp(2.5rem, 6vw, 4rem));
+}
 
 /* Member detail */
 .member-back {
@@ -985,25 +1030,6 @@ body.interior main { padding-top: var(--header-h); }
   word-break: break-word;
 }
 .contact-card__value--email { font-size: clamp(1.05rem, 1.7vw, 1.3rem); }
-.contact-card__cta {
-  margin-top: 0.25rem;
-  font-size: 0.74rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--navy);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-}
-.contact-card__cta::after { content: "\2192"; transition: transform 0.3s var(--ease); }
-.contact-card--link:hover .contact-card__cta::after { transform: translateX(5px); }
-.contact-card__note {
-  margin-top: 0.25rem;
-  font-size: 0.74rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--steel);
-}
 @media (max-width: 820px) { .contact-cards { grid-template-columns: 1fr; } }
 
 /* ============================================================
