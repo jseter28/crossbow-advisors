@@ -332,7 +332,7 @@ ul, ol { list-style: none; padding: 0; }
   position: relative;
   min-height: 100svh;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   background: var(--ink);
   color: var(--paper);
   overflow: hidden;
@@ -374,7 +374,7 @@ ul, ol { list-style: none; padding: 0; }
   background: linear-gradient(180deg, rgba(14,15,18,0.2) 0%, rgba(14,15,18,0) 35%, rgba(14,15,18,0.65) 100%);
 }
 
-.hero__inner { padding-top: var(--header-h); }
+.hero__inner { padding-top: calc(var(--header-h) + clamp(2rem, 7vh, 5rem)); }
 .hero .eyebrow { color: var(--navy-soft); margin-bottom: clamp(1.5rem, 4vw, 2.5rem); }
 
 .hero__title {
@@ -396,34 +396,6 @@ ul, ol { list-style: none; padding: 0; }
   .hero__title { font-size: clamp(2.3rem, 11.5vw, 3.1rem); line-height: 1.02; max-width: none; }
   .hero__lede { font-size: 1.02rem; max-width: none; }
   .hero .eyebrow { letter-spacing: 0.14em; font-size: 0.66rem; line-height: 1.6; }
-}
-
-.hero__scroll {
-  position: absolute;
-  left: var(--gutter);
-  bottom: 2rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  font-size: 0.68rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(244,242,237,0.55);
-}
-.hero__scroll-line {
-  width: 70px; height: 1px; background: rgba(244,242,237,0.4);
-  position: relative; overflow: hidden;
-}
-.hero__scroll-line::after {
-  content: ""; position: absolute; inset: 0;
-  background: var(--paper);
-  transform: translateX(-100%);
-  animation: scrollline 2.6s var(--ease) infinite;
-}
-@keyframes scrollline {
-  0% { transform: translateX(-100%); }
-  50% { transform: translateX(0); }
-  100% { transform: translateX(100%); }
 }
 
 /* ============================================================
@@ -576,13 +548,20 @@ ul, ol { list-style: none; padding: 0; }
 .skyband::before {
   content: "";
   position: absolute;
-  inset: 0;
+  left: 0;
+  right: 0;
+  top: -20%;
+  height: 140%;                                  /* slack so the parallax shift never reveals an edge */
   z-index: 0;
   background-image: url("img/skyline-placeholder.svg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-attachment: fixed;                  /* pins the image to the viewport */
+  /* Parallax: JS sets --sky-shift as the band scrolls through the viewport.
+     Defaults to 0 (a static cover image) when JS is off or motion is reduced.
+     transform works on touch screens where background-attachment:fixed does not. */
+  transform: translate3d(0, var(--sky-shift, 0px), 0);
+  will-change: transform;
   /* keep the photo's natural color; gentle tweak only */
   filter: contrast(1.03) brightness(0.97);
 }
@@ -618,10 +597,8 @@ ul, ol { list-style: none; padding: 0; }
   margin-top: 1rem;
   color: var(--paper);
 }
-/* iOS/Android render background-attachment:fixed inconsistently — degrade to a
-   normal scrolling cover image on small/touch screens. */
+/* Shorter band on small screens; the JS transform parallax works here too. */
 @media (max-width: 820px) {
-  .skyband::before { background-attachment: scroll; }
   .skyband { min-height: clamp(300px, 48vh, 440px); }
 }
 
@@ -1087,6 +1064,6 @@ body.interior main { padding-top: var(--header-h); }
 
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1 !important; transform: none !important; transition: none; }
-  .hero__light, .hero__scroll-line::after { animation: none; }
+  .hero__light { animation: none; }
   * { transition-duration: 0.01ms !important; }
 }
