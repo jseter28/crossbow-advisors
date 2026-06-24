@@ -98,28 +98,4 @@
     }, { passive: true });
   }
 
-  /* ---------- Contact form (client-side; no backend wired) ---------- */
-  var form = document.getElementById("contactForm");
-  var status = document.getElementById("formStatus");
-  if (form) {
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      status.classList.remove("is-error");
-
-      var name = form.elements.name.value.trim();
-      var email = form.elements.email.value.trim();
-      var message = form.elements.message.value.trim();
-      var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-      if (!name || !emailOk || !message) {
-        status.textContent = "Please complete your name, a valid email, and a message.";
-        status.classList.add("is-error");
-        return;
-      }
-
-      // Placeholder submission — wire to a backend / mailto provider in production.
-      status.textContent = "Thank you. Your inquiry has been received — we will respond directly.";
-      form.reset();
-    });
-  }
 })();
