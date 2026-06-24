@@ -16,3 +16,6 @@ _preview_tmp.html
 
 # Logs
 *.log
+
+# Visual brainstorming companion
+.superpowers/

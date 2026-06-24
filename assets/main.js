@@ -70,7 +70,7 @@
     }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
 
     // Apply a gentle stagger to grouped reveals
-    var groups = document.querySelectorAll(".cap-grid, .focus-list, .approach-grid, .insights-grid, .philosophy__points, .firm__cols, .stats, .hero__inner");
+    var groups = document.querySelectorAll(".insights-grid, .firm__cols, .stats, .hero__inner");
     groups.forEach(function (group) {
       var kids = group.querySelectorAll("[data-reveal]");
       kids.forEach(function (kid, i) { kid.dataset.delay = String(Math.min(i * 70, 350)); });
@@ -96,6 +96,40 @@
         ticking = false;
       });
     }, { passive: true });
+  }
+
+  /* ---------- Skyline band parallax ----------
+     Drives .skyband::before via the --sky-shift custom property. Uses a
+     transform (not background-attachment:fixed), so it works on touch screens
+     too. The image layer has 20% vertical slack each side (see styles.css), and
+     the shift is capped at 18% of the band height so an edge is never revealed. */
+  if (!prefersReduced) {
+    var bands = document.querySelectorAll(".skyband");
+    if (bands.length) {
+      var bandTicking = false;
+
+      var updateBands = function () {
+        var vh = window.innerHeight;
+        bands.forEach(function (band) {
+          var rect = band.getBoundingClientRect();
+          if (rect.bottom < 0 || rect.top > vh) return; // skip offscreen bands
+          var max = rect.height * 0.18;
+          var center = rect.top + rect.height / 2;
+          // p: +1 when the band is well below the viewport center, 0 at center, -1 above
+          var p = (center - vh / 2) / (vh / 2 + rect.height / 2);
+          band.style.setProperty("--sky-shift", (-p * max).toFixed(1) + "px");
+        });
+        bandTicking = false;
+      };
+
+      window.addEventListener("scroll", function () {
+        if (bandTicking) return;
+        bandTicking = true;
+        requestAnimationFrame(updateBands);
+      }, { passive: true });
+      window.addEventListener("resize", updateBands, { passive: true });
+      updateBands();
+    }
   }
 
 })();
