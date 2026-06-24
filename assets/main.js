@@ -70,7 +70,7 @@
     }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
 
     // Apply a gentle stagger to grouped reveals
-    var groups = document.querySelectorAll(".cap-grid, .focus-list, .approach-grid, .insights-grid, .philosophy__points, .firm__cols, .stats, .hero__inner");
+    var groups = document.querySelectorAll(".insights-grid, .firm__cols, .stats, .hero__inner");
     groups.forEach(function (group) {
       var kids = group.querySelectorAll("[data-reveal]");
       kids.forEach(function (kid, i) { kid.dataset.delay = String(Math.min(i * 70, 350)); });
