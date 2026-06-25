@@ -829,37 +829,6 @@ body.has-dark-hero .contact-hero {
 }
 .member-bio p + p { margin-top: 1.3rem; }
 
-/* Credentials as a horizontal strip beneath the name */
-.member-meta {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(1.5rem, 4vw, 3rem);
-  max-width: 760px;
-  border-top: 2px solid var(--navy);
-  border-bottom: 1px solid var(--line);
-  padding-block: 1.4rem;
-  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
-}
-.member-meta > div { padding: 0; }
-@media (max-width: 620px) {
-  .member-meta { grid-template-columns: 1fr; gap: 0; }
-  .member-meta > div { padding: 1.1rem 0; border-bottom: 1px solid var(--line); }
-  .member-meta > div:last-child { border-bottom: none; }
-}
-.member-meta dt {
-  font-size: 0.7rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--steel);
-  margin-bottom: 0.5rem;
-}
-.member-meta dd {
-  font-family: var(--serif);
-  font-weight: 360;
-  font-size: 1.02rem;
-  line-height: 1.4;
-}
-
 /* ============================================================
    FOOTER CONTACT (merged contact section)
    ============================================================ */
@@ -965,7 +934,7 @@ body.has-dark-hero .contact-hero {
 .contact-section { padding-top: clamp(2.5rem, 5vw, 4rem); }
 .contact-cards {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: clamp(1rem, 2vw, 1.5rem);
 }
 .contact-card {
@@ -1037,9 +1006,6 @@ body.has-dark-hero .contact-hero {
   margin-top: 0;
 }
 .member-hero__id .member-hero__role { margin-top: 0.85rem; }
-
-/* Navy accent on the credentials strip */
-.member-meta dt { color: var(--navy); }
 
 /* ============================================================
    REVEAL MOTION
