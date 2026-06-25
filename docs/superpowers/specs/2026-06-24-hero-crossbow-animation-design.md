@@ -81,6 +81,11 @@ On load the schematic plots itself line by line. **Nothing fades in.**
 - **Stroked geometry** (paths, lines, circles): drawn by tracing — measure each element
   with `getTotalLength()`, set `stroke-dasharray`/`stroke-dashoffset` to that length, then
   transition `stroke-dashoffset` to `0`.
+- **Counter-rotating circles:** circles marked `class="cb-rev"` start from a **negative**
+  offset (`-length → 0`), which reverses their sweep so they wind opposite the rest — a
+  systematic (not random) flourish. Applied to the DETAIL A magnifier's two concentric
+  circles (a "focusing lens" counter-rotation) and alternating callout rings. Final state is
+  identical (a full circle either way).
 - **Text labels** (callout numbers, `DETAIL A`, `FIG. 1`): cannot be pen-traced, so they
   reveal with a quick **left-to-right wipe** via `clip-path: inset(...)` (reads as a pen
   writing them, not a fade). Outline-stroke tracing was considered and rejected (spindly at

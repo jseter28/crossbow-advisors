@@ -171,7 +171,9 @@
           try { len = el.getTotalLength(); } catch (e) { len = 0; }
           if (!len) return;
           el.style.strokeDasharray = len;
-          el.style.strokeDashoffset = len;
+          // .cb-rev circles trace the opposite way: a negative start offset
+          // reverses the sweep, so they wind counter to the rest.
+          el.style.strokeDashoffset = el.classList.contains("cb-rev") ? -len : len;
           traces.push({ el: el, c: c });
         });
       });
