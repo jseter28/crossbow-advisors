@@ -338,17 +338,17 @@ Insert this block immediately before the final `})();` (currently line 138):
   if (crossbow && !prefersReduced) {
     var TARGET = 0.5; // final opacity of the whole schematic
     var seq = {
-      "g-cons":   { d: 0,    t: 900 },
-      "g-tiller": { d: 500,  t: 700 },
-      "g-prod":   { d: 950,  t: 800 },
-      "g-string": { d: 1500, t: 600 },
-      "g-lash":   { d: 1550, t: 400 },
-      "g-stir":   { d: 1700, t: 450 },
-      "g-nut":    { d: 1900, t: 600 },
-      "g-bolt":   { d: 2250, t: 750 },
-      "g-call":   { d: 2700, t: 700 },
-      "g-det":    { d: 2950, t: 850 },
-      "g-title":  { d: 3300, t: 700 }
+      "g-cons":   { d: 0,    t: 600 },
+      "g-tiller": { d: 320,  t: 480 },
+      "g-prod":   { d: 620,  t: 540 },
+      "g-string": { d: 980,  t: 420 },
+      "g-lash":   { d: 1010, t: 300 },
+      "g-stir":   { d: 1120, t: 320 },
+      "g-nut":    { d: 1240, t: 420 },
+      "g-bolt":   { d: 1480, t: 520 },
+      "g-call":   { d: 1780, t: 460 },
+      "g-det":    { d: 1950, t: 520 },
+      "g-title":  { d: 2200, t: 420 }
     };
     var traces = []; // stroked geometry — drawn by tracing the path
     var wipes = [];  // text labels — revealed by a left-to-right wipe
@@ -396,16 +396,16 @@ cd /Users/johnseter/Desktop/Odin/crossbow-advisors
 CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 python3 -m http.server 8123 >/dev/null 2>&1 &
 SRV=$!; sleep 1
-for ms in 1000 2200 3100 4200; do
+for ms in 700 1500 2700; do
   "$CHROME" --headless --disable-gpu --hide-scrollbars --force-device-scale-factor=1 \
     --window-size=1440,900 --virtual-time-budget=$ms \
     --screenshot="/tmp/draw-$ms.png" "http://localhost:8123/index.html"
 done
 kill $SRV
-open /tmp/draw-1000.png /tmp/draw-2200.png /tmp/draw-3100.png /tmp/draw-4200.png
+open /tmp/draw-700.png /tmp/draw-1500.png /tmp/draw-2700.png
 ```
 
-Expected progression: ~1000ms construction + tiller drawing; ~2200ms prod + string + bolt extending; ~3100ms lock + callouts drawing; ~4200ms complete drawing including the wiped-on numbers, DETAIL A, and FIG. 1 — settled at the same finished image as Task 1 Step 3.
+Expected progression: ~700ms construction + tiller drawing; ~1500ms prod + string + bolt extending; ~2700ms complete drawing including the wiped-on numbers, DETAIL A, and FIG. 1 — settled at the same finished image as Task 1 Step 3. (Total runtime ~2.6s.)
 
 - [ ] **Step 4: Verify reduced-motion + interior pages are unaffected (code + visual)**
 

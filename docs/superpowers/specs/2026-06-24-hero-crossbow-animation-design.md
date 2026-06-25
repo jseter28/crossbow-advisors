@@ -58,19 +58,19 @@ On load the schematic plots itself line by line. **Nothing fades in.**
 
 | Group | Delay | Dur |
 |---|---|---|
-| construction (axis, dims, scale bar) | 0 | 900 |
-| tiller / stock | 500 | 700 |
-| prod (bow) | 950 | 800 |
-| string | 1500 | 600 |
-| lashing | 1550 | 400 |
-| stirrup | 1700 | 450 |
-| trigger nut / lock | 1900 | 600 |
-| bolt (draws toward target — the payoff) | 2250 | 750 |
-| callouts ①–⑤ | 2700 | 700 |
-| DETAIL A magnifier | 2950 | 850 |
-| FIG. 1 title block | 3300 | 700 |
+| construction (axis, dims, scale bar) | 0 | 600 |
+| tiller / stock | 320 | 480 |
+| prod (bow) | 620 | 540 |
+| string | 980 | 420 |
+| lashing | 1010 | 300 |
+| stirrup | 1120 | 320 |
+| trigger nut / lock | 1240 | 420 |
+| bolt (draws toward target — the payoff) | 1480 | 520 |
+| callouts ①–⑤ | 1780 | 460 |
+| DETAIL A magnifier | 1950 | 520 |
+| FIG. 1 title block | 2200 | 420 |
 
-Total ~4s. Easing `cubic-bezier(.45,0,.25,1)`. No glow / accent on completion — it just
+Total ~2.6s. Easing `cubic-bezier(.45,0,.25,1)`. No glow / accent on completion — it just
 settles into the final drawing.
 
 **Behavior:**
@@ -105,5 +105,5 @@ animation frames deterministically. Confirm: (a) reduced-motion renders the stat
 - Variant **A** (full blueprint crossbow), maximum detail — not the abstract fragment (B).
 - Keep the **DETAIL A** magnifier.
 - Text labels: **wipe**, not outline-trace.
-- Pacing: **~4s**, understated finish (no glow).
+- Pacing: **~2.6s**, understated finish (no glow).
 - Everything **draws** (pen-trace or wipe); nothing fades.
