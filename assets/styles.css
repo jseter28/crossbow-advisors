@@ -402,9 +402,15 @@ ul, ol { list-style: none; padding: 0; }
   .hero__title { font-size: clamp(2.3rem, 11.5vw, 3.1rem); line-height: 1.02; max-width: none; }
   .hero__lede { font-size: 1.02rem; max-width: none; }
   .hero .eyebrow { letter-spacing: 0.14em; font-size: 0.66rem; line-height: 1.6; }
-  /* Phone: headline anchors the bottom, so lift the whole motif into the
-     upper space above it. Transform, not opacity (the draw-on sets opacity). */
-  .hero__crossbow { transform: translateY(-13%) scale(0.92); transform-origin: 50% 42%; }
+  /* Phone: strip the drafting furniture (dimensions, callouts, DETAIL, title)
+     — shrunk to fit a phone they read as a textbook figure. Scale the bare
+     instrument up so it bleeds off the edges as an atmospheric motif above the
+     headline. Transform, not opacity (the draw-on sets opacity inline). */
+  #heroCrossbow .g-cons,
+  #heroCrossbow .g-call,
+  #heroCrossbow .g-det,
+  #heroCrossbow .g-title { display: none; }
+  .hero__crossbow { transform: translate(-6%, -4%) scale(1.8); transform-origin: 50% 42%; }
 }
 
 /* ============================================================

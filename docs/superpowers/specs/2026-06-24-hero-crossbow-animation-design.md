@@ -24,10 +24,11 @@ A single inline SVG (`viewBox="0 0 1200 760"`, plan view, aimed right) placed in
 **Hero composition (editorial / lower-left anchor):** the hero content is
 bottom-anchored (`.hero { align-items: flex-end }`, `.hero__inner` padding-bottom
 `clamp(3.5rem, 13vh, 9rem)`) so the headline grounds the lower-left, while the
-crossbow is lifted into the upper space above it (`transform: translateY(-11%)
-scale(1.02)`; phone `translateY(-13%) scale(0.92)`). This composes the type and
-the motif together — text over the quiet tail of the drawing, the dense lock/
-fletching kept up in the negative space — rather than parking both top-aligned.
+crossbow is lifted into the upper space above it (desktop `transform:
+translateY(-11%) scale(1.02)`). This composes the type and the motif together —
+text over the quiet tail of the drawing, the dense lock/fletching kept up in the
+negative space — rather than parking both top-aligned. (Phone treatment differs;
+see Responsive framing below.)
 
 **Linework (all hairline, technical-illustration style):**
 
@@ -60,12 +61,18 @@ lock); `meet` instead shows the complete crossbow small. Per-breakpoint framing
 is then deliberate, controlled in CSS:
 
 - Levers, in order of reach: (1) `preserveAspectRatio` (fit behavior),
-  (2) the `.hero__crossbow` box geometry / `transform` (size + position),
-  (3) the radial `mask` (edge falloff), (4) breakpoint overrides.
-- Phone (`@media (max-width: 560px)`): `transform: translateY(6%) scale(0.9)`
-  seats it slightly lower and smaller as a composed motif beneath the stacked
-  headline. **Use `transform`, not `opacity`** — the draw-on sets inline
-  `opacity` at runtime, which overrides CSS `opacity` but never `transform`.
+  (2) **progressive reduction** — hide detail that doesn't survive shrinking,
+  (3) the `.hero__crossbow` box geometry / `transform` (size + position),
+  (4) the radial `mask` (edge falloff), (5) breakpoint overrides.
+- Phone (`@media (max-width: 560px)`): the drafting furniture (`g-cons`,
+  `g-call`, `g-det`, `g-title` — dimensions, callouts, DETAIL A, FIG. 1) is
+  **hidden** (`display: none`); at phone scale that furniture reads as a
+  textbook figure. The bare instrument is then scaled up to bleed off the edges
+  as an atmospheric motif above the bottom-anchored headline:
+  `transform: translate(-6%, -4%) scale(1.8)`. **Use `transform`, not
+  `opacity`** — the draw-on sets inline `opacity` at runtime, which overrides
+  CSS `opacity` but never `transform`. (The hidden groups still get processed by
+  the draw-on JS harmlessly; they just never render on phone.)
 
 ## Animation — "self-drafting" draw-on
 
