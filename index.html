@@ -102,7 +102,136 @@
     <section class="hero" id="hero">
       <div class="hero__bg" aria-hidden="true">
         <div class="hero__light"></div>
-        <div class="hero__grid"></div>
+        <svg id="heroCrossbow" class="hero__crossbow" viewBox="0 0 1200 760" preserveAspectRatio="xMidYMid slice" fill="none" stroke-linecap="round" stroke-linejoin="round" font-family="Inter, sans-serif" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+
+          <!-- construction / drafting -->
+          <g class="g-cons" stroke="currentColor" stroke-opacity="0.30" stroke-width="1">
+            <line x1="40" y1="380" x2="1160" y2="380"/>
+            <line x1="716" y1="64" x2="716" y2="696"/>
+            <line x1="92" y1="412" x2="92" y2="492"/>
+            <line x1="1100" y1="392" x2="1100" y2="492"/>
+            <line x1="100" y1="484" x2="1092" y2="484"/>
+            <path d="M100 484 L118 477 M100 484 L118 491"/>
+            <path d="M1092 484 L1074 477 M1092 484 L1074 491"/>
+            <line x1="770" y1="92" x2="826" y2="92"/>
+            <line x1="770" y1="668" x2="826" y2="668"/>
+            <line x1="816" y1="100" x2="816" y2="660"/>
+            <path d="M816 100 L809 117 M816 100 L823 117"/>
+            <path d="M816 660 L809 643 M816 660 L823 643"/>
+            <path d="M92 706 H212 M92 701 V711 M122 703 V709 M152 701 V711 M182 703 V709 M212 701 V711"/>
+          </g>
+
+          <!-- tiller / stock -->
+          <g class="g-tiller" stroke="currentColor" stroke-opacity="0.60" stroke-width="1.3">
+            <path d="M150 362 H720"/>
+            <path d="M150 398 H720"/>
+            <path d="M720 356 V404"/>
+            <path d="M150 362 L118 350 L92 353 L92 407 L118 410 L150 398"/>
+            <path d="M118 350 V410" stroke-opacity="0.4"/>
+            <path d="M300 398 C 300 452 352 458 384 446 C 392 442 392 430 388 420"/>
+            <path d="M250 380 H705" stroke-opacity="0.35"/>
+            <path d="M560 374 H705 M560 386 H705" stroke-opacity="0.4"/>
+            <path d="M168 372 C 360 369 540 369 700 372" stroke-opacity="0.25"/>
+            <path d="M168 390 C 360 392 540 392 700 389" stroke-opacity="0.25"/>
+          </g>
+
+          <!-- prod / bow (double-line recurve) -->
+          <g class="g-prod" stroke="currentColor" stroke-opacity="0.85" stroke-width="1.5">
+            <path d="M760 98 C 694 200 682 298 714 372"/>
+            <path d="M751 108 C 707 206 701 300 724 372" stroke-opacity="0.55"/>
+            <path d="M760 98 C 772 90 779 99 773 110"/>
+            <path d="M760 662 C 694 560 682 462 714 388"/>
+            <path d="M751 652 C 707 554 701 460 724 388" stroke-opacity="0.55"/>
+            <path d="M760 662 C 772 670 779 661 773 650"/>
+            <path d="M755 104 C 700 202 690 300 719 372" stroke-opacity="0.3" stroke-width="1"/>
+            <path d="M755 656 C 700 558 690 460 719 388" stroke-opacity="0.3" stroke-width="1"/>
+            <path d="M700 358 H730 M700 402 H730 M700 358 V402 M730 358 V402" stroke-opacity="0.6"/>
+          </g>
+
+          <!-- prod-to-tiller lashing -->
+          <g class="g-lash" stroke="currentColor" stroke-opacity="0.45" stroke-width="1">
+            <path d="M700 360 L728 396 M700 368 L728 404 M700 376 L728 412 M698 356 L726 392 M696 384 L724 420 M704 354 L732 390"/>
+          </g>
+
+          <!-- string (double, with loops) -->
+          <g class="g-string" stroke="currentColor" stroke-width="1.4">
+            <path d="M760 98 L 560 380 L 760 662" stroke-opacity="0.85"/>
+            <path d="M758 104 L 567 380 L 758 656" stroke-opacity="0.45" stroke-width="1"/>
+            <circle cx="760" cy="98" r="4" stroke-opacity="0.7"/>
+            <circle cx="760" cy="662" r="4" stroke-opacity="0.7"/>
+            <path d="M548 374 L548 386 M572 374 L572 386" stroke-opacity="0.8"/>
+          </g>
+
+          <!-- trigger nut / lock -->
+          <g class="g-nut" stroke="currentColor" stroke-opacity="0.9" stroke-width="1.4">
+            <circle cx="560" cy="380" r="15"/>
+            <path d="M560 365 A 15 15 0 0 1 573 373" stroke-opacity="0.55"/>
+            <path d="M551 392 L551 404 L560 404"/>
+            <circle cx="560" cy="380" r="2.3"/>
+            <path d="M556 395 C 551 424 540 450 549 470"/>
+            <path d="M520 452 C 516 490 588 490 584 450" stroke-opacity="0.6"/>
+            <circle cx="556" cy="408" r="2" stroke-opacity="0.6"/>
+          </g>
+
+          <!-- bolt / quarrel -->
+          <g class="g-bolt" stroke="currentColor" stroke-opacity="0.85" stroke-width="1.3">
+            <path d="M566 376 H1066 M566 384 H1066"/>
+            <path d="M560 376 H566 M560 384 H566 M557 380 H566"/>
+            <path d="M580 376 L626 359 L646 361 L600 376 Z" stroke-opacity="0.7"/>
+            <path d="M580 384 L626 401 L646 399 L600 384 Z" stroke-opacity="0.7"/>
+            <path d="M584 380 H650" stroke-opacity="0.5"/>
+            <path d="M576 374 V386 M640 376 V384" stroke-opacity="0.5"/>
+            <path d="M1066 380 L1092 365 L1106 380 L1092 395 Z"/>
+            <path d="M1058 376 H1066 M1058 384 H1066" stroke-opacity="0.6"/>
+            <path d="M1079 372 V388" stroke-opacity="0.6"/>
+          </g>
+
+          <!-- stirrup (foot loop) -->
+          <g class="g-stir" stroke="currentColor" stroke-opacity="0.55" stroke-width="1.3">
+            <path d="M720 366 C 754 358 776 370 776 380 C 776 390 754 402 720 394"/>
+            <path d="M724 372 C 750 366 768 374 768 380 C 768 386 750 394 724 388" stroke-opacity="0.4"/>
+          </g>
+
+          <!-- callouts -->
+          <g class="g-call" stroke="currentColor" stroke-opacity="0.4" stroke-width="1" fill="none">
+            <circle cx="852" cy="148" r="12"/><line x1="843" y1="156" x2="744" y2="190"/>
+            <circle cx="648" cy="150" r="12"/><line x1="657" y1="158" x2="700" y2="210"/>
+            <circle cx="452" cy="476" r="12"/><line x1="461" y1="468" x2="552" y2="396"/>
+            <circle cx="958" cy="306" r="12"/><line x1="950" y1="314" x2="980" y2="382"/>
+            <circle cx="300" cy="476" r="12"/><line x1="300" y1="464" x2="300" y2="400"/>
+          </g>
+          <g class="g-call" fill="currentColor" fill-opacity="0.55" stroke="none" font-size="13" text-anchor="middle">
+            <text x="852" y="153">1</text>
+            <text x="648" y="155">2</text>
+            <text x="452" y="481">3</text>
+            <text x="958" y="311">4</text>
+            <text x="300" y="481">5</text>
+          </g>
+
+          <!-- detail magnifier (lock, 3:1) -->
+          <g class="g-det" stroke="currentColor" stroke-opacity="0.4" stroke-width="1">
+            <circle cx="560" cy="380" r="26"/>
+            <line x1="582" y1="394" x2="922" y2="556"/>
+          </g>
+          <g class="g-det" stroke="currentColor" stroke-opacity="0.7" stroke-width="1.3">
+            <circle cx="1000" cy="588" r="92" stroke-opacity="0.45"/>
+            <circle cx="990" cy="576" r="44"/>
+            <path d="M990 532 A 44 44 0 0 1 1028 555" stroke-opacity="0.5"/>
+            <path d="M964 612 L964 648 L990 648"/>
+            <circle cx="990" cy="576" r="5"/>
+            <path d="M978 620 C 968 660 944 700 962 736" stroke-opacity="0.8"/>
+            <path d="M1006 564 L1066 540" stroke-opacity="0.5"/>
+            <path d="M978 540 L1002 540" stroke-opacity="0.5"/>
+          </g>
+          <g class="g-det" fill="currentColor" fill-opacity="0.5" stroke="none" font-size="12" letter-spacing="1.5" text-anchor="middle">
+            <text x="1000" y="700">DETAIL A · 3:1</text>
+          </g>
+
+          <!-- title block -->
+          <g class="g-title" fill="currentColor" fill-opacity="0.5" stroke="none" text-anchor="end">
+            <text x="1150" y="716" font-size="13" letter-spacing="3">FIG. 1 — CROSSBOW · PLAN VIEW</text>
+          </g>
+        </svg>
       </div>
       <div class="container hero__inner">
         <h1 class="hero__title reveal" data-reveal>

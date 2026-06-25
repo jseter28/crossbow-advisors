@@ -357,15 +357,18 @@ ul, ol { list-style: none; padding: 0; }
   100% { transform: translate3d(1%, -2%, 0) scale(1.06); }
 }
 
-/* architectural line grid */
-.hero__grid {
+/* crossbow schematic — drawn on by main.js (self-drafting effect) */
+.hero__crossbow {
   position: absolute; inset: 0;
-  background-image:
-    linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255,255,255,0.035) 1px, transparent 1px);
-  background-size: clamp(80px, 9vw, 140px) clamp(80px, 9vw, 140px);
-  mask-image: radial-gradient(120% 120% at 60% 40%, #000 35%, transparent 85%);
-  -webkit-mask-image: radial-gradient(120% 120% at 60% 40%, #000 35%, transparent 85%);
+  width: 100%; height: 100%;
+  color: #dce6fb;
+  opacity: 0;                 /* revealed by the draw-on; final target 0.5 */
+  -webkit-mask-image: radial-gradient(125% 118% at 58% 46%, #000 30%, transparent 88%);
+  mask-image: radial-gradient(125% 118% at 58% 46%, #000 30%, transparent 88%);
+}
+/* no JS / reduced motion: show the finished drawing, no animation */
+@media (prefers-reduced-motion: reduce) {
+  .hero__crossbow { opacity: 0.5; }
 }
 .hero::after {
   content: "";
