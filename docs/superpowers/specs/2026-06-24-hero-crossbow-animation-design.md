@@ -21,6 +21,14 @@ A single inline SVG (`viewBox="0 0 1200 760"`, plan view, aimed right) placed in
 `.hero__bg`, layered with the existing drifting `.hero__light`. The uniform
 `.hero__grid` is **removed** and replaced by this schematic.
 
+**Hero composition (editorial / lower-left anchor):** the hero content is
+bottom-anchored (`.hero { align-items: flex-end }`, `.hero__inner` padding-bottom
+`clamp(3.5rem, 13vh, 9rem)`) so the headline grounds the lower-left, while the
+crossbow is lifted into the upper space above it (`transform: translateY(-11%)
+scale(1.02)`; phone `translateY(-13%) scale(0.92)`). This composes the type and
+the motif together — text over the quiet tail of the drawing, the dense lock/
+fletching kept up in the negative space — rather than parking both top-aligned.
+
 **Linework (all hairline, technical-illustration style):**
 
 - Buttstock + tiller/stock with pistol grip, bolt flight groove, faint wood grain
