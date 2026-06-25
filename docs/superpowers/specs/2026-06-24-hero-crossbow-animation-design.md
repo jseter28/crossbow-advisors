@@ -42,6 +42,23 @@ A single inline SVG (`viewBox="0 0 1200 760"`, plan view, aimed right) placed in
 - All strokes solid (no dashed strokes — they conflict with the draw-on technique)
 - Decorative only: SVG is `aria-hidden="true"`
 
+### Responsive framing (art direction, not cover-crop)
+
+`preserveAspectRatio="xMidYMid meet"` — the SVG always shows the **whole**
+crossbow scaled to fit, never a zoom-cropped fragment. On desktop the hero's
+aspect ratio ≈ the drawing's (1.58), so `meet` looks the same as `slice` would.
+On narrow/tall phones `slice` would over-zoom into the drawing's center (the
+lock); `meet` instead shows the complete crossbow small. Per-breakpoint framing
+is then deliberate, controlled in CSS:
+
+- Levers, in order of reach: (1) `preserveAspectRatio` (fit behavior),
+  (2) the `.hero__crossbow` box geometry / `transform` (size + position),
+  (3) the radial `mask` (edge falloff), (4) breakpoint overrides.
+- Phone (`@media (max-width: 560px)`): `transform: translateY(6%) scale(0.9)`
+  seats it slightly lower and smaller as a composed motif beneath the stacked
+  headline. **Use `transform`, not `opacity`** — the draw-on sets inline
+  `opacity` at runtime, which overrides CSS `opacity` but never `transform`.
+
 ## Animation — "self-drafting" draw-on
 
 On load the schematic plots itself line by line. **Nothing fades in.**
