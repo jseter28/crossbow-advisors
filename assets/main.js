@@ -82,19 +82,17 @@
     revealEls.forEach(function (el) { io.observe(el); });
   }
 
-  /* ---------- Subtle hero parallax ---------- */
+  /* ---------- Subtle hero parallax (drifting light only) ---------- */
   if (!prefersReduced && hero) {
     var light = hero.querySelector(".hero__light");
-    var grid = hero.querySelector(".hero__grid");
     var ticking = false;
     window.addEventListener("scroll", function () {
       if (ticking) return;
       ticking = true;
       requestAnimationFrame(function () {
         var y = window.scrollY;
-        if (y < window.innerHeight) {
-          if (light) light.style.transform = "translateY(" + y * 0.12 + "px)";
-          if (grid) grid.style.transform = "translateY(" + y * 0.06 + "px)";
+        if (y < window.innerHeight && light) {
+          light.style.transform = "translateY(" + y * 0.12 + "px)";
         }
         ticking = false;
       });
@@ -133,6 +131,66 @@
       window.addEventListener("resize", updateBands, { passive: true });
       updateBands();
     }
+  }
+
+  /* ---------- Hero crossbow: self-drafting draw-on ----------
+     Traces each stroked element by animating stroke-dashoffset from its own
+     length to 0; text labels reveal with a left-to-right clip-path wipe.
+     Nothing fades. Plays once per load. Reduced-motion shows the finished
+     drawing via CSS (.hero__crossbow opacity is 0.5 under that media query),
+     so this routine simply does not run. */
+  var crossbow = document.getElementById("heroCrossbow");
+  if (crossbow && !prefersReduced) {
+    var TARGET = 0.5; // final opacity of the whole schematic
+    var seq = {
+      "g-cons":   { d: 0,    t: 900 },
+      "g-tiller": { d: 500,  t: 700 },
+      "g-prod":   { d: 950,  t: 800 },
+      "g-string": { d: 1500, t: 600 },
+      "g-lash":   { d: 1550, t: 400 },
+      "g-stir":   { d: 1700, t: 450 },
+      "g-nut":    { d: 1900, t: 600 },
+      "g-bolt":   { d: 2250, t: 750 },
+      "g-call":   { d: 2700, t: 700 },
+      "g-det":    { d: 2950, t: 850 },
+      "g-title":  { d: 3300, t: 700 }
+    };
+    var traces = []; // stroked geometry — drawn by tracing the path
+    var wipes = [];  // text labels — revealed by a left-to-right wipe
+
+    Object.keys(seq).forEach(function (cls) {
+      var c = seq[cls];
+      crossbow.querySelectorAll("." + cls).forEach(function (g) {
+        g.querySelectorAll("path,line,circle,polygon,polyline,text").forEach(function (el) {
+          if (el.tagName.toLowerCase() === "text") {
+            el.style.clipPath = "inset(-15% 102% -15% -2%)"; // hidden to the left
+            wipes.push({ el: el, c: c });
+            return;
+          }
+          var len = 0;
+          try { len = el.getTotalLength(); } catch (e) { len = 0; }
+          if (!len) return;
+          el.style.strokeDasharray = len;
+          el.style.strokeDashoffset = len;
+          traces.push({ el: el, c: c });
+        });
+      });
+    });
+
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        crossbow.style.opacity = TARGET;
+        traces.forEach(function (o) {
+          o.el.style.transition = "stroke-dashoffset " + o.c.t + "ms cubic-bezier(.45,0,.25,1) " + o.c.d + "ms";
+          o.el.style.strokeDashoffset = "0";
+        });
+        wipes.forEach(function (o) {
+          var dur = Math.min(o.c.t, 520);
+          o.el.style.transition = "clip-path " + dur + "ms cubic-bezier(.45,0,.25,1) " + o.c.d + "ms";
+          o.el.style.clipPath = "inset(-15% -2% -15% -2%)"; // fully revealed
+        });
+      });
+    });
   }
 
 })();
