@@ -218,7 +218,7 @@ ul, ol { list-style: none; padding: 0; }
   font-size: 0.62rem;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--steel);
+  color: var(--steel-dk); /* AA on light header; dark-hero override below keeps --steel */
   margin-top: 3px;
 }
 .on-dark:not(.is-scrolled) .brand__sub { color: var(--steel); }
@@ -310,28 +310,6 @@ ul, ol { list-style: none; padding: 0; }
   .nav { display: none; }
   .nav-toggle { display: flex; }
 }
-
-/* ============================================================
-   BUTTONS
-   ============================================================ */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  font-size: 0.85rem;
-  letter-spacing: 0.04em;
-  font-weight: 500;
-  padding: 0.95rem 1.8rem;
-  border-radius: 999px;
-  border: 1px solid transparent;
-  transition: background 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease), transform 0.3s var(--ease);
-}
-.btn--primary { background: var(--ink); color: var(--paper); }
-.btn--primary:hover { background: var(--navy); }
-.btn--ghost { border-color: currentColor; color: currentColor; }
-.btn--ghost:hover { background: currentColor; }
-.btn--ghost:hover { color: var(--ink); }
 
 /* ============================================================
    HERO
@@ -682,43 +660,9 @@ ul, ol { list-style: none; padding: 0; }
 }
 
 /* ============================================================
-   INSIGHTS
+   TEAM CARD — "view profile" affordance
    ============================================================ */
-.insights-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1px;
-  background: var(--line);
-  border: 1px solid var(--line);
-}
-.insight {
-  background: var(--paper);
-  padding: clamp(2rem, 4vw, 3.25rem);
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  transition: background 0.4s var(--ease);
-  cursor: pointer;
-  min-height: 280px;
-}
-.insight:hover { background: var(--paper-2); }
-.insight__tag {
-  font-size: 0.68rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--navy);
-  font-weight: 500;
-}
-.insight h3 {
-  font-family: var(--serif);
-  font-weight: 360;
-  font-size: clamp(1.4rem, 2.6vw, 2rem);
-  line-height: 1.15;
-  letter-spacing: -0.015em;
-  margin-top: auto;
-}
-.insight p { color: var(--muted); font-size: 0.98rem; max-width: 40ch; }
-.insight__more {
+.team-card__more {
   font-size: 0.78rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -726,72 +670,13 @@ ul, ol { list-style: none; padding: 0; }
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
 }
-.insight__more::after {
+.team-card__more::after {
   content: "→";
   transition: transform 0.3s var(--ease);
 }
-.insight:hover .insight__more::after { transform: translateX(5px); }
-
-@media (max-width: 720px) { .insights-grid { grid-template-columns: 1fr; } }
-
-/* ============================================================
-   CONTACT
-   ============================================================ */
-.contact__title {
-  font-family: var(--serif);
-  font-weight: 340;
-  font-size: clamp(2rem, 4.5vw, 3.4rem);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  max-width: 18ch;
-}
-.contact__sub { color: var(--muted); margin-top: 1.25rem; font-size: 1.05rem; max-width: 40ch; }
-
-.contact-form {
-  margin-top: clamp(2.5rem, 5vw, 4rem);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.75rem 1.5rem;
-  max-width: 640px;
-}
-.field { display: flex; flex-direction: column; gap: 0.6rem; }
-.field--full { grid-column: 1 / -1; }
-.field label {
-  font-size: 0.72rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-.field input, .field textarea {
-  font-family: inherit;
-  font-size: 1rem;
-  color: var(--ink);
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid var(--steel);
-  padding: 0.6rem 0;
-  transition: border-color 0.3s var(--ease);
-  resize: vertical;
-}
-.field input:focus, .field textarea:focus {
-  outline: none;
-  border-bottom-color: var(--ink);
-}
-.field input::placeholder, .field textarea::placeholder { color: var(--steel); }
-
-.contact-form__foot {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-  margin-top: 0.5rem;
-}
-.form-status { font-size: 0.9rem; color: var(--navy); }
-.form-status.is-error { color: #9b2c2c; }
-
-@media (max-width: 560px) { .contact-form { grid-template-columns: 1fr; } }
+.team-card:hover .team-card__more::after { transform: translateX(5px); }
 
 /* ============================================================
    FOOTER
@@ -836,7 +721,7 @@ ul, ol { list-style: none; padding: 0; }
   flex-wrap: wrap;
   padding-top: 2rem;
 }
-.footer__legal p { font-size: 0.78rem; color: rgba(244,242,237,0.45); }
+.footer__legal p { font-size: 0.78rem; color: rgba(244,242,237,0.55); }
 .footer__disclaimer { max-width: 52ch; text-align: right; }
 
 @media (max-width: 760px) {
@@ -874,9 +759,9 @@ ul, ol { list-style: none; padding: 0; }
   font-size: 0.7rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--steel);
+  color: var(--steel-dk);
 }
-.team-card h3 {
+.team-card h2 {
   font-family: var(--serif);
   font-weight: 360;
   font-size: clamp(1.4rem, 2.4vw, 1.95rem);
@@ -884,7 +769,6 @@ ul, ol { list-style: none; padding: 0; }
   letter-spacing: -0.015em;
   margin-top: auto;
 }
-.team-card .insight__more { color: var(--ink); margin-top: 1rem; }
 
 @media (max-width: 860px) { .team-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 540px) { .team-grid { grid-template-columns: 1fr; } }
@@ -943,7 +827,7 @@ body.interior main { padding-top: var(--header-h); }
   font-size: 0.72rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--steel);
+  color: var(--steel-dk);
   margin-top: 1.25rem;
 }
 
@@ -970,7 +854,7 @@ body.interior main { padding-top: var(--header-h); }
   font-size: 0.7rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--steel);
+  color: var(--steel-dk);
   margin-bottom: 0.5rem;
 }
 .member-meta dd {
@@ -1002,51 +886,6 @@ body.interior main { padding-top: var(--header-h); }
 .more-advisors__list a:hover { color: var(--navy); }
 
 /* ============================================================
-   FOOTER CONTACT (merged contact section)
-   ============================================================ */
-#contact { scroll-margin-top: var(--header-h); }
-
-.footer__contact {
-  padding-bottom: clamp(3rem, 6vw, 5rem);
-  border-bottom: 1px solid var(--line-dk);
-}
-.footer__contact-title {
-  font-family: var(--serif);
-  font-weight: 340;
-  font-size: clamp(2rem, 4.5vw, 3.4rem);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  max-width: 18ch;
-  color: var(--paper);
-}
-.footer__contact-sub {
-  color: rgba(244, 242, 237, 0.7);
-  margin-top: 1.25rem;
-  font-size: 1.05rem;
-  max-width: 40ch;
-}
-
-/* Contact form on dark background */
-.contact-form--dark { margin-top: clamp(2.5rem, 5vw, 4rem); }
-.contact-form--dark .field label { color: rgba(244, 242, 237, 0.55); }
-.contact-form--dark .field input,
-.contact-form--dark .field textarea {
-  color: var(--paper);
-  border-bottom-color: rgba(244, 242, 237, 0.3);
-}
-.contact-form--dark .field input:focus,
-.contact-form--dark .field textarea:focus { border-bottom-color: var(--paper); }
-.contact-form--dark .field input::placeholder,
-.contact-form--dark .field textarea::placeholder { color: rgba(244, 242, 237, 0.4); }
-.contact-form--dark .btn--primary { background: var(--paper); color: var(--ink); }
-.contact-form--dark .btn--primary:hover { background: var(--paper-2); }
-.contact-form--dark .form-status { color: var(--navy-soft); }
-.contact-form--dark .form-status.is-error { color: #e7a3a3; }
-
-/* Spacing between contact block and the footer identity row */
-.footer__contact + .footer__inner { padding-top: clamp(3rem, 6vw, 5rem); }
-
-/* ============================================================
    CONTACT PAGE
    ============================================================ */
 .contact-details {
@@ -1065,7 +904,7 @@ body.interior main { padding-top: var(--header-h); }
   font-size: 0.72rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--steel);
+  color: var(--steel-dk);
 }
 .contact-details dd a {
   font-family: var(--serif);

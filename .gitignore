@@ -16,3 +16,7 @@ _preview_tmp.html
 
 # Logs
 *.log
+
+# Audit tool (dev-only; not deployed)
+tools/audit/node_modules/
+tools/audit/reports/

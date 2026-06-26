@@ -1,0 +1,14 @@
+{
+  "name": "crossbow-audit",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Dev-only QA audit for the Crossbow Capital Advisors static site. Crawls every page and reports console errors, broken links, accessibility violations, page weight, and SEO/meta gaps.",
+  "scripts": {
+    "audit": "node audit.mjs"
+  },
+  "dependencies": {
+    "@axe-core/puppeteer": "^4.10.0",
+    "puppeteer": "^23.0.0"
+  }
+}
